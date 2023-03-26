@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 const HRACalculator = () => {
   const [metro, setMetro] = useState(false);
@@ -7,6 +8,8 @@ const HRACalculator = () => {
   const [hra, setHra] = useState(0);
   const [rentPaid, setRentPaid] = useState(0);
   const [taxableHra, setTaxableHra] = useState(0);
+
+  const dispatch = useDispatch();
 
   const calcuateHRA = () => {
     if (hra * 12 < 100000) {
@@ -21,6 +24,7 @@ const HRACalculator = () => {
       }
       const arent = (rentPaid * 12) - 0.1 * (basic + dearness) * 12;
       setTaxableHra((hra * 12) - Math.min(ahra, ametro, arent));
+      dispatch({type: "hraCalculated", payload: (hra * 12) - Math.min(ahra, ametro, arent)});
     }
   };
 
@@ -77,7 +81,7 @@ const HRACalculator = () => {
           <br />
           <h5>Metro cities - Delhi, Mumbai, Kolkata, Chennai</h5>
         </div>
-        <button type="submit">Calculate</button>
+        <button type="submit">Calculate HRA</button>
       </form>
         <div>
         {taxableHra?  <h4> {taxableHra} </h4>: ""}

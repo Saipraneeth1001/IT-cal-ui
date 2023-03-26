@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from '../App';
 import Info from './Info';
 import TaxSlabs from "./TaxSlabs";
+import { BasicTable } from "../styled-components/Table";
 
 const Router = createBrowserRouter([
 
@@ -20,6 +21,10 @@ const Router = createBrowserRouter([
     {
         path: "/taxslabs",
         element: <TaxSlabs />
+    },
+    {
+      path: "/table",
+      element: <BasicTable />
     }
 ]);
 

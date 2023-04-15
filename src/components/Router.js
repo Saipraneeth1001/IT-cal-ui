@@ -5,8 +5,9 @@ import Info from './Info';
 import TaxSlabs from "./TaxSlabs";
 import { BasicTable } from "../styled-components/Table";
 import ModalComponent from "./ModalComponent";
-import Layout from './Layout';
+import Layout from './HRALayout';
 import Homepage from "../pages/Homepage";
+import HRACalculatorForm from "../forms/HRACalulatorForm";
 
 const Router = createBrowserRouter([
 
@@ -32,6 +33,18 @@ const Router = createBrowserRouter([
     {
         path: "/modal",
         element: <ModalComponent />
+    },
+    {
+        path:"/cal",
+        element: <HRACalculatorForm />
+    },
+    {
+        path:"/taxes",
+        element: <App />
+    },
+    {
+        path:"/layout",
+        element: <Layout />
     }
 ]);
 

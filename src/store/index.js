@@ -11,6 +11,7 @@ const reducer = (state = initialState, action) => {
     }
 
     if (action.type === "hraCalculated") {
+        console.log(action.payload);
         return { ...state, hraCalculated: action.payload}
     }
 

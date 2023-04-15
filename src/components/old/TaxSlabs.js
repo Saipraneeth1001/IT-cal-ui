@@ -1,5 +1,5 @@
 import React from "react";
-import "./css/TaxSlabs.css";
+import "../css/TaxSlabs.css";
 
 export default function TaxSlabs() {
   return (

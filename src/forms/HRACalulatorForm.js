@@ -46,10 +46,10 @@ export default function HRACalculatorForm() {
     <>
     <Box sx={{ display: "flex", flexDirection: "column" }} style={{marginTop: 2}}>
       <Typography variant="h5">HRACalculator</Typography>
-      <Typography variant="span">
+      <Typography variant="span" style={{marginTop: 1}}>
         Please enter details per month basis only
       </Typography>
-      <div style={{ marginTop: 2 }}>
+      <div style={{ marginTop: 3 }}>
         <TextField
           label="Basic Salary"
           id="outlined-start-adornment"

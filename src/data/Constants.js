@@ -25,6 +25,11 @@ export const cardData = [
         'text': "Learn about Investments under 80C.",
         'route':"/investments"
     },
+    {
+        'title':"HRA Calculator",
+        'text': "Calculate your House Rent Allowance",
+        'route':"/hracalculator"
+    },
 ];
 
 export default {};

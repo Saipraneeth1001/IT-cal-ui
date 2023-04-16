@@ -2,7 +2,7 @@ import { NewTaxRegime, OldTaxRegime } from '../data/TaxSlabData';
 import { BasicTable } from '../styled-components/Table';
 
 
-const Info = () => {
+const TaxRegime = () => {
     return(
       <div>
         <BasicTable rows={OldTaxRegime} taxRegime="Income tax slab - Old Tax Regime"/>
@@ -12,4 +12,4 @@ const Info = () => {
     );
 }
 
-export default Info;
+export default TaxRegime;

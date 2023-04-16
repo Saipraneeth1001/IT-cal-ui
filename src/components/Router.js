@@ -8,6 +8,9 @@ import ModalComponent from "./old/ModalComponent";
 import HRALayout from "../layouts/HRALayout";
 import TaxableIncomeLayout from "../layouts/TaxableIncomeLayout";
 import Homepage from "../pages/Homepage";
+import CalculateTaxPage from "../pages/CalculateTaxPage";
+import Infopage from "../pages/Infopage";
+import ScrollToSection from '../layouts/ScrollToSection';
 
 const Router = createBrowserRouter([
   {
@@ -17,27 +20,19 @@ const Router = createBrowserRouter([
 
   {
     path: "/info",
-    element: <Info />,
-  },
-  {
-    path: "/taxslabs",
-    element: <TaxSlabs />,
-  },
-  {
-    path: "/table",
-    element: <BasicTable />,
-  },
-  {
-    path: "/modal",
-    element: <ModalComponent />,
+    element: <Infopage />,
   },
   {
     path: "/taxes",
-    element: <TaxableIncomeLayout />,
+    element: <CalculateTaxPage />,
   },
   {
     path: "/hracalculator",
     element: <HRALayout />,
+  },
+  {
+    path: "/section",
+    element: <ScrollToSection />,
   },
 ]);
 

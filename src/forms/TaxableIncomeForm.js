@@ -33,7 +33,7 @@ export default function TaxableIncomeForm() {
     <>
     <Box sx={{ display: "flex", flexDirection: "column" }} style={{marginTop: 2}}>
       <Typography variant="h5">Taxable Income Calculator</Typography>
-      <Typography variant="span" style={{marginTop: 2}}>
+      <Typography variant="span" style={{marginTop: 4, marginBottom: 2}}>
         These details can be found in payslip/offer letter
       </Typography>
       <div style={{ marginTop: 6}}>

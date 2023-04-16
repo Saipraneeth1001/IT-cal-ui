@@ -58,9 +58,9 @@ const Navbar = () => {
       path: '/',
     },
     {
-      title: 'About',
+      title: 'Info',
       icon: <InfoIcon />,
-      path: '/about',
+      path: '/info',
     },
   ];
 
@@ -95,15 +95,15 @@ const Navbar = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            My App
+          <Typography variant="h6" className={classes.title} style={{fontFamily: 'consolas'}}>
+            IT CALCULATOR
           </Typography>
           <div className={classes.menuButtons}>
-            <Button color="inherit" component="a" href="/">
+            <Button color="inherit" component="a" href="/" style={{fontFamily: 'consolas', fontSize: 18}}>
               Home
             </Button>
-            <Button color="inherit" component="a" href="/about">
-              About
+            <Button color="inherit" component="a" href="/info" style={{fontFamily: 'consolas', fontSize: 18}}>
+              Info
             </Button>
           </div>
         </Toolbar>

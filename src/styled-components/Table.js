@@ -26,10 +26,12 @@ import Paper from '@mui/material/Paper';
               key={row.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row">
+              <TableCell component="th" scope="row" 
+              style={{backgroundColor: "white"}}
+              >
                 {row.name}
               </TableCell>
-              <TableCell style={{backgroundColor: "#f2f2f2"}} align="right">{row.percent}</TableCell>
+              <TableCell style={{backgroundColor: "white"}} align="right">{row.percent}</TableCell>
               
             </TableRow>
           ))}

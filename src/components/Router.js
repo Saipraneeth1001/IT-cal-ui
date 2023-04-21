@@ -6,6 +6,10 @@ import Homepage from "../pages/Homepage";
 import CalculateTaxPage from "../pages/CalculateTaxPage";
 import Infopage from "../pages/Infopage";
 import ScrollToSection from '../layouts/ScrollToSection';
+import SimpleExamplePage from "../pages/SimpleExamplePage";
+import ComplexExamplePage from "../pages/ComplexExamplePage";
+import Investments from "../pages/Investments";
+
 
 const Router = createBrowserRouter([
   {
@@ -29,6 +33,19 @@ const Router = createBrowserRouter([
     path: "/section",
     element: <ScrollToSection />,
   },
+  {
+    path: "/simple-example",
+    element: <SimpleExamplePage />,
+  },
+  {
+    path: "/complex-example",
+    element: <ComplexExamplePage />,
+  },
+  {
+    path: "/investments",
+    element: <Investments />,
+  }
+
 ]);
 
 export default Router;

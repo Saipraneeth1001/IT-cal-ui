@@ -3,14 +3,15 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import HRALayout from "../layouts/HRALayout";
 import Homepage from "../pages/Homepage";
-import CalculateTaxPage from "../pages/CalculateTaxPage";
+import CalculateTaxPage from "../pages/old/CalculateTaxPage";
 import Infopage from "../pages/Infopage";
-import ScrollToSection from '../layouts/ScrollToSection';
+import ScrollToSection from "../layouts/ScrollToSection";
 import SimpleExamplePage from "../pages/SimpleExamplePage";
 import ComplexExamplePage from "../pages/ComplexExamplePage";
 import Investments from "../pages/Investments";
 import SimpleExampleOne from "../components/examples/SimpleExampleOne";
-
+import IncomeTaxCalculator from "../components/IncomeTaxCalculator";
+import TaxForm from "../pages/IncomeTaxCalculatorPage";
 
 const Router = createBrowserRouter([
   {
@@ -47,10 +48,13 @@ const Router = createBrowserRouter([
     element: <Investments />,
   },
   {
+    path: "/calculate-taxes",
+    element: <TaxForm />,
+  },
+  {
     path: "/simple-ex-15",
     element: <SimpleExampleOne />,
-  }
-
+  },
 ]);
 
 export default Router;

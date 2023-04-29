@@ -1,188 +1,297 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import Box from "@mui/material/Box";
+import InputAdornment from "@mui/material/InputAdornment";
+import TextField from "@mui/material/TextField";
+import { Button, Typography } from "@mui/material";
+import { useDispatch } from "react-redux";
 
 function IncomeTaxCalculator() {
-  const [financialYear, setFinancialYear] = useState('');
-  const [age, setAge] = useState('');
-  const [taxableSalary, setTaxableSalary] = useState(0);
-  const [interestIncome, setInterestIncome] = useState(0);
-  const [rentalIncome, setRentalIncome] = useState(0);
-  const [homeLoanInterest, setHomeLoanInterest] = useState(0);
-  const [digitalAssetsIncome, setDigitalAssetsIncome] = useState(0);
-  const [taxSavingInvestments, setTaxSavingInvestments] = useState(0);
-  const [tax, setTax] = useState(0);
-  const [oldTax, setOldTax] = useState(0);
-  const [newTax, setNewTax] = useState(0);
-  const [selfOccupiedInterest, setSelfOccupiedInterest] = useState(0);
+  const [incomeFromSalary, setIncomeFromSalary] = useState("");
+  const [exemptAllowances, setExemptAllowances] = useState([]);
+  const [interestIncome, setInterestIncome] = useState("");
+  const [interestOnHomeLoanSelfOccupied, setInterestOnHomeLoanSelfOccupied] = useState("");
+  const [rentalIncome, setRentalIncome] = useState("");
+  const [interestOnHomeLoanLetOut, setInterestOnHomeLoanLetOut] = useState("");
+  const [digitalAssetIncome, setDigitalAssetIncome] = useState("");
+  const [otherIncome, setOtherIncome] = useState("");
+  const [basicDeductions, setBasicDeductions] = useState("");
+  const [interestFromDeposits, setInterestFromDeposits] = useState("");
+  const [medicalInsurance, setMedicalInsurance] = useState("");
+  const [donationsToCharity, setDonationsToCharity] = useState("");
+  const [interestOnEducationLoan, setInterestOnEducationLoan] = useState("");
+  const [interestOnHousingLoan, setInterestOnHousingLoan] = useState("");
+  const [employeeNpsContribution, setEmployeeNpsContribution] = useState("");
 
-  const calculateTax = () => {
-    let calculatedTax = 0;
+  const dispatch = useDispatch();
+
+  const calculateTaxOldRegime = (taxableIncome) => {
     let calculatedOldTax = 0;
-    let calculatedNewTax = 0;
-
-    // Calculate tax based on taxable salary
-    const taxableIncome = taxableSalary + interestIncome + rentalIncome + digitalAssetsIncome - homeLoanInterest;
     if (taxableIncome <= 250000) {
-      calculatedTax = 0;
-    } else if (taxableIncome <= 500000) {
-      calculatedTax = (taxableIncome - 250000) * 0.05;
-    } else if (taxableIncome <= 750000) {
-      calculatedTax = 12500 + (taxableIncome - 500000) * 0.1;
-    } else if (taxableIncome <= 1000000) {
-      calculatedTax = 37500 + (taxableIncome - 750000) * 0.15;
-    } else if (taxableIncome <= 1250000) {
-      calculatedTax = 75000 + (taxableIncome - 1000000) * 0.2;
-    } else if (taxableIncome <= 1500000) {
-      calculatedTax = 125000 + (taxableIncome - 1250000) * 0.25;
-    } else {
-      calculatedTax = 187500 + (taxableIncome - 1500000) * 0.3;
-    }
+          calculatedOldTax = 0;
+        } else if (taxableIncome <= 500000) {
+          calculatedOldTax = (taxableIncome - 250000) * 0.05;
+        } else if (taxableIncome <= 1000000) {
+          calculatedOldTax = 12500 + (taxableIncome - 500000) * 0.2;
+        } else {
+          calculatedOldTax = 112500 + (taxableIncome - 1000000) * 0.3;
+        }
+        return calculatedOldTax;
+  }
 
-    // Calculate tax under old tax slabs
-    const oldTaxableIncome = taxableSalary + interestIncome + rentalIncome - taxSavingInvestments;
-    if (oldTaxableIncome <= 250000) {
-      calculatedOldTax = 0;
-    } else if (oldTaxableIncome <= 500000) {
-      calculatedOldTax = (oldTaxableIncome - 250000) * 0.05;
-    } else if (oldTaxableIncome <= 1000000) {
-      calculatedOldTax = 12500 + (oldTaxableIncome - 500000) * 0.2;
-    } else {
-      calculatedOldTax = 112500 + (oldTaxableIncome - 1000000) * 0.3;
-    }
+  const calculateTaxNewRegime = (taxableIncome) => {
+    let calculatedNewTax = 0;
+    if (taxableIncome <= 250000) {
+          calculatedNewTax = 0;
+        } else if (taxableIncome <= 500000) {
+          calculatedNewTax = (taxableIncome - 250000) * 0.05;
+        } else if (taxableIncome <= 750000) {
+          calculatedNewTax = 12500 + (taxableIncome - 500000) * 0.1;
+        } else if (taxableIncome <= 1000000) {
+          calculatedNewTax = 37500 + (taxableIncome - 750000) * 0.15;
+        } else if (taxableIncome <= 1250000) {
+          calculatedNewTax = 75000 + (taxableIncome - 1000000) * 0.2;
+        } else if (taxableIncome <= 1500000) {
+          calculatedNewTax = 125000 + (taxableIncome - 1250000) * 0.25;
+        } else {
+          calculatedNewTax = 187500 + (taxableIncome - 1500000) * 0.3;
+        }
+        
+        return calculatedNewTax;
+  }
 
-    // Calculate tax under new tax slabs
-    const newTaxableIncome = taxableSalary + interestIncome + rentalIncome - taxSavingInvestments;
-    if (newTaxableIncome <= 250000) {
-      calculatedNewTax = 0;
-    } else if (newTaxableIncome <= 500000) {
-      calculatedNewTax = (newTaxableIncome - 250000) * 0.05;
-    } else if (newTaxableIncome <= 750000) {
-        calculatedNewTax = 12500 + (newTaxableIncome - 500000) * 0.1;
-      } else if (newTaxableIncome <= 1000000) {
-        calculatedNewTax = 37500 + (newTaxableIncome - 750000) * 0.15;
-      } else if (newTaxableIncome <= 1250000) {
-        calculatedNewTax = 75000 + (newTaxableIncome - 1000000) * 0.2;
-      } else if (newTaxableIncome <= 1500000) {
-        calculatedNewTax = 125000 + (newTaxableIncome - 1250000) * 0.25;
-      } else {
-        calculatedNewTax = 187500 + (newTaxableIncome - 1500000) * 0.3;
-      }
-      
-      setTax(calculatedTax);
-      setOldTax(calculatedOldTax);
-      setNewTax(calculatedNewTax);
+  const calculateTaxableIncome = () => {
+    const taxableIncome =
+      incomeFromSalary +
+      interestIncome +
+      rentalIncome +
+      digitalAssetIncome -
+      interestOnHousingLoan - 
+      basicDeductions -
+      exemptAllowances - 50000;
+      return taxableIncome;
+  }
+  const calculateTax = () => {
+    const taxableIncome = calculateTaxableIncome();
+    let calculatedOldTax = calculateTaxOldRegime(taxableIncome);
+    let calculatedNewTax = calculateTaxNewRegime(taxableIncome);
+    dispatch({type: 'taxCalculated', 
+    payload: {
+        taxableIncome: taxableIncome,
+        oldTax: calculatedOldTax,
+        newTax: calculatedNewTax,
+        tax: Math.min(calculatedOldTax, calculatedNewTax)
+    }})
+  };
 
-    };
-
-    const handleSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     calculateTax();
-    };
-    
-    return (
-    <div>
-    <form onSubmit={handleSubmit}>
-    <div>
-    <label htmlFor="financialYear">Financial Year:</label>
-    <select id="financialYear" value={financialYear} onChange={(e) => setFinancialYear(e.target.value)}>
-    <option value="">Select a financial year</option>
-    <option value="2021-2022">2021-2022</option>
-    <option value="2020-2021">2020-2021</option>
-    <option value="2019-2020">2019-2020</option>
-    </select>
-    </div>
-    <div>
-    <label htmlFor="age">Age:</label>
-    <select id="age" value={age} onChange={(e) => setAge(e.target.value)}>
-    <option value="">Select an age group</option>
-    <option value="below60">Below 60 years</option>
-    <option value="60to80">60-80 years</option>
-    <option value="above80">Above 80 years</option>
-    </select>
-    </div>
-    <div>
-    <label htmlFor="taxableSalary">Taxable Salary:</label>
-    <input
-    type="number"
-    id="taxableSalary"
-    value={taxableSalary}
-    onChange={(e) => setTaxableSalary(parseFloat(e.target.value))}
-    />
-    </div>
-    <div>
-    <label htmlFor="interestIncome">Interest Income:</label>
-    <input
-    type="number"
-    id="interestIncome"
-    value={interestIncome}
-    onChange={(e) => setInterestIncome(parseFloat(e.target.value))}
-    />
-    </div>
-    <div>
-    <label htmlFor="rentalIncome">Rental Income:</label>
-    <input
-    type="number"
-    id="rentalIncome"
-    value={rentalIncome}
-    onChange={(e) => setRentalIncome(parseFloat(e.target.value))}
-    />
-    </div>
-    <div>
-    <label htmlFor="homeLoanInterest">Interest Paid on Home Loan for Rented:</label>
-    <input
-    type="number"
-    id="homeLoanInterest"
-    value={homeLoanInterest}
-    onChange={(e) => setHomeLoanInterest(parseFloat(e.target.value))}
-    />
-    </div>
-    <div>
-    <label htmlFor="digitalAssetsIncome">Income from Digital Assets:</label>
-    <input
-    type="number"
-    id="digitalAssetsIncome"
-    value={digitalAssetsIncome}
-    onChange={(e) => setDigitalAssetsIncome(parseFloat(e.target.value))}
-    />
-    </div>
-    <div>
-    <label htmlFor="selfOccupiedInterest">Interest Paid on Home Loan for Self-Occupied Property:</label>
-    <input
-    type="number"
-    id="selfOccupiedInterest"
-    value={selfOccupiedInterest}
-    onChange={(e) => setSelfOccupiedInterest(parseFloat(e.target.value))}
-    />
-    </div>
-    {age === "below60" && (
-    <div>
-    <label htmlFor="taxSavingInvestments">Tax Saving Investments:</label>
-    <input
-    type="number"
-    id="taxSavingInvestments"
-    value={taxSavingInvestments}
-    onChange={(e) => setTaxSavingInvestments(parseFloat(e.target.value))}
-    />
-    </div>
-    )}
-    <button type="submit">Calculate</button>
-    </form>
-    {tax > 0 && (
-    <div>
-    <h2>Tax Calculation Results</h2>
-    <p>
-    Old Tax Slabs: Your tax liability is <strong>Rs. {oldTax}</strong> for the financial year <strong>{financialYear}</strong>{" "}
-    under the old tax slabs.
-    </p>
-    <p>
-    New Tax Slabs: Your tax liability is <strong>Rs. {newTax}</strong> for the financial year <strong>{financialYear}</strong>{" "}
-    under the new tax slabs.
-    </p>
-    </div>
-    )}
-    </div>
-    );
-    }
-    
-    export default IncomeTaxCalculator;
-    
-    
+  };
+
+  return (
+    <>
+      <Box
+        sx={{ display: "flex", flexDirection: "column" }}
+        style={{ marginTop: 2 }}
+      >
+        <Typography variant="h5">Income Tax Calculator</Typography>
+        <div style={{ marginTop: 3 }}>
+          <TextField
+            label="Income From Salary"
+            id="outlined-start-adornment"
+            sx={{ m: 1, width: "25ch" }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start"></InputAdornment>
+              ),
+            }}
+            value={incomeFromSalary}
+            onChange={(e) =>
+              setIncomeFromSalary(parseFloat(e.target.value) || "")
+            }
+          />
+          <TextField
+            label="Exempt Allowances"
+            id="outlined-start-adornment"
+            sx={{ m: 1, width: "25ch" }}
+            InputProps={{
+              startAdornment: <InputAdornment position="end"></InputAdornment>,
+            }}
+            value={exemptAllowances}
+            onChange={(e) => setExemptAllowances(e.target.value || "")}
+          />
+          <TextField
+            label="Interest income"
+            id="outlined-start-adornment"
+            sx={{ m: 1, width: "25ch" }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start"></InputAdornment>
+              ),
+            }}
+            value={interestIncome}
+            onChange={(e) => setInterestIncome(e.target.value || "")}
+          />
+          <TextField
+            label="Interest on Home Self Occupied"
+            id="outlined-start-adornment"
+            sx={{ m: 1, width: "25ch" }}
+            InputProps={{
+              startAdornment: <InputAdornment position="end"></InputAdornment>,
+            }}
+            value={interestOnHomeLoanSelfOccupied}
+            onChange={(e) =>
+              setInterestOnHomeLoanSelfOccupied(e.target.value || "")
+            }
+          />
+          <TextField
+            label="Rental Income"
+            id="outlined-start-adornment"
+            sx={{ m: 1, width: "25ch" }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start"></InputAdornment>
+              ),
+            }}
+            value={rentalIncome}
+            onChange={(e) => setRentalIncome(parseFloat(e.target.value) || "")}
+          />
+
+          <TextField
+            label="Interest on home loan let out"
+            id="outlined-start-adornment"
+            sx={{ m: 1, width: "25ch" }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start"></InputAdornment>
+              ),
+            }}
+            value={interestOnHomeLoanLetOut}
+            onChange={(e) => setInterestOnHomeLoanLetOut(parseFloat(e.target.value) || "")}
+          />
+          <TextField
+            label="Income from digital assets"
+            id="outlined-start-adornment"
+            sx={{ m: 1, width: "25ch" }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start"></InputAdornment>
+              ),
+            }}
+            value={digitalAssetIncome}
+            onChange={(e) => setDigitalAssetIncome(parseFloat(e.target.value) || "")}
+          />
+          <TextField
+            label="Income from other sources"
+            id="outlined-start-adornment"
+            sx={{ m: 1, width: "25ch" }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start"></InputAdornment>
+              ),
+            }}
+            value={otherIncome}
+            onChange={(e) => setOtherIncome(parseFloat(e.target.value) || "")}
+          />
+          <p>Deductions:</p>
+          <TextField
+            label="Basic Deductions"
+            id="outlined-start-adornment"
+            sx={{ m: 1, width: "25ch" }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start"></InputAdornment>
+              ),
+            }}
+            value={basicDeductions}
+            onChange={(e) => setBasicDeductions(parseFloat(e.target.value) || "")}
+          />
+          <TextField
+            label="Interest from deposits"
+            id="outlined-start-adornment"
+            sx={{ m: 1, width: "25ch" }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start"></InputAdornment>
+              ),
+            }}
+            value={interestFromDeposits}
+            onChange={(e) => setInterestFromDeposits(parseFloat(e.target.value) || "")}
+          />
+          <TextField
+            label="Medical Insurance"
+            id="outlined-start-adornment"
+            sx={{ m: 1, width: "25ch" }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start"></InputAdornment>
+              ),
+            }}
+            value={medicalInsurance}
+            onChange={(e) => setMedicalInsurance(parseFloat(e.target.value) || "")}
+          />
+          <TextField
+            label="Donations to Charity"
+            id="outlined-start-adornment"
+            sx={{ m: 1, width: "25ch" }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start"></InputAdornment>
+              ),
+            }}
+            value={donationsToCharity}
+            onChange={(e) => setDonationsToCharity(parseFloat(e.target.value) || "")}
+          />
+          <TextField
+            label="Interest on education loan"
+            id="outlined-start-adornment"
+            sx={{ m: 1, width: "25ch" }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start"></InputAdornment>
+              ),
+            }}
+            value={interestOnEducationLoan}
+            onChange={(e) => setInterestOnEducationLoan(parseFloat(e.target.value) || "")}
+          />
+          <TextField
+            label="Interest on housing loan"
+            id="outlined-start-adornment"
+            sx={{ m: 1, width: "25ch" }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start"></InputAdornment>
+              ),
+            }}
+            value={interestOnHousingLoan}
+            onChange={(e) => setInterestOnHousingLoan(parseFloat(e.target.value) || "")}
+          />
+          <TextField
+            label="Employee NPS Contribution"
+            id="outlined-start-adornment"
+            sx={{ m: 1, width: "25ch" }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start"></InputAdornment>
+              ),
+            }}
+            value={employeeNpsContribution}
+            onChange={(e) => setEmployeeNpsContribution(parseFloat(e.target.value) || "")}
+          />
+        </div>
+        <Box>
+          <Button
+            variant="contained"
+            size="small"
+            maxWidth="20"
+            onClick={handleSubmit}
+          >
+            Calculate Tax
+          </Button>
+        </Box>
+      </Box>
+    </>
+  );
+}
+
+export default IncomeTaxCalculator;

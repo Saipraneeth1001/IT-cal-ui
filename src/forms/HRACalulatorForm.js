@@ -28,11 +28,15 @@ export default function HRACalculatorForm() {
       } else {
         ametro = 0.4 * ((basic + dearness) * 12);
       }
-      const arent = rentPaid * 12 - 0.1 * (basic + dearness) * 12;
+      // console.log("ahra: ", ahra);
+      // console.log("ametro value: ", ametro);
+      // console.log("rentPaid: ", rentPaid * 12, "subtracting value: ", (0.1 * (basic + dearness) * 12));
+      const arent = rentPaid * 12 - ((0.1 * (basic + dearness)) * 12);
+      // console.log("arent: ", arent);
       setTaxableHra(hra * 12 - Math.min(ahra, ametro, arent));
       dispatch({
         type: "hraCalculated",
-        payload: hra * 12 - Math.min(ahra, ametro, arent),
+        payload: Math.min(ahra, ametro, arent),
       });
     }
   };

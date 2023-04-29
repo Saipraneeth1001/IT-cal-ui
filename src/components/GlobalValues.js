@@ -10,7 +10,7 @@ const GlobalValues = () => {
             <p>Global Values</p>
             { taxableIncome? <p>Taxable Income: {taxableIncome}</p> : ""}
             <br />
-            { hraCalculated? <p>HRA Calculated: {hraCalculated}</p> : ""}
+            { hraCalculated? <p>Exempted HRA: {hraCalculated}</p> : ""}
         </div>
       );
 }

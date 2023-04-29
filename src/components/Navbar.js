@@ -15,6 +15,7 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/Home';
 import InfoIcon from '@material-ui/icons/Info';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,6 +44,8 @@ const Navbar = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -50,6 +53,10 @@ const Navbar = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const handleClick = (path) => {
+      navigate(path);
+  }
 
   const navLinks = [
     {
@@ -73,7 +80,7 @@ const Navbar = () => {
     >
       <List>
         {navLinks.map((link) => (
-          <ListItem button key={link.title} component="a" href={link.path}>
+          <ListItem button key={link.title} onClick={() => handleClick(link.path)}>
             <ListItemIcon>{link.icon}</ListItemIcon>
             <ListItemText primary={link.title} />
           </ListItem>
@@ -95,14 +102,14 @@ const Navbar = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title} style={{fontFamily: 'consolas'}}>
+          <Typography variant="h6" className={classes.title} style={{fontFamily: 'Trebuchet MS'}}>
             IT CALCULATOR
           </Typography>
           <div className={classes.menuButtons}>
-            <Button color="inherit" component="a" href="/" style={{fontFamily: 'consolas', fontSize: 18}}>
+            <Button color="inherit" onClick={() => handleClick("/")} style={{fontFamily: 'Trebuchet MS', fontSize: 18}}>
               Home
             </Button>
-            <Button color="inherit" component="a" href="/info" style={{fontFamily: 'consolas', fontSize: 18}}>
+            <Button color="inherit" onClick={() => handleClick("/info")} style={{fontFamily: 'Trebuchet MS', fontSize: 18}}>
               Info
             </Button>
           </div>

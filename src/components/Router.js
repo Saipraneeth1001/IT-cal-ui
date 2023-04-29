@@ -9,6 +9,7 @@ import ScrollToSection from '../layouts/ScrollToSection';
 import SimpleExamplePage from "../pages/SimpleExamplePage";
 import ComplexExamplePage from "../pages/ComplexExamplePage";
 import Investments from "../pages/Investments";
+import SimpleExampleOne from "../components/examples/SimpleExampleOne";
 
 
 const Router = createBrowserRouter([
@@ -44,6 +45,10 @@ const Router = createBrowserRouter([
   {
     path: "/investments",
     element: <Investments />,
+  },
+  {
+    path: "/simple-ex-15",
+    element: <SimpleExampleOne />,
   }
 
 ]);

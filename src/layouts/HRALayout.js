@@ -8,7 +8,7 @@ const GridComponent = () => {
   return (
     // <div style={{ width: '800px', margin: '0 auto' }}>
     <Container>
-      {/* <Navbar /> */}
+      <Navbar />
       <Grid container spacing={2} style={{ marginTop: 2 }}>
         <Grid item xs={8} md={8}>
           <HRACalculatorForm />

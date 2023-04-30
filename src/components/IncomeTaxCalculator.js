@@ -40,21 +40,46 @@ function IncomeTaxCalculator() {
 
   const calculateTaxNewRegime = (taxableIncome) => {
     let calculatedNewTax = 0;
+
     if (taxableIncome <= 250000) {
-          calculatedNewTax = 0;
-        } else if (taxableIncome <= 500000) {
-          calculatedNewTax = (taxableIncome - 250000) * 0.05;
-        } else if (taxableIncome <= 750000) {
-          calculatedNewTax = 12500 + (taxableIncome - 500000) * 0.1;
-        } else if (taxableIncome <= 1000000) {
-          calculatedNewTax = 37500 + (taxableIncome - 750000) * 0.15;
-        } else if (taxableIncome <= 1250000) {
-          calculatedNewTax = 75000 + (taxableIncome - 1000000) * 0.2;
-        } else if (taxableIncome <= 1500000) {
-          calculatedNewTax = 125000 + (taxableIncome - 1250000) * 0.25;
-        } else {
-          calculatedNewTax = 187500 + (taxableIncome - 1500000) * 0.3;
-        }
+      calculatedNewTax = 0;
+    } else if (taxableIncome > 250000 && taxableIncome <= 500000) {
+      calculatedNewTax = (taxableIncome - 250000) * 0.05;
+    } else if (taxableIncome > 500000 && taxableIncome <= 750000) {
+      calculatedNewTax = 12500 + (taxableIncome - 500000) * 0.1;
+    } else if (taxableIncome > 750000 && taxableIncome <= 1000000) {
+      calculatedNewTax = 37500 + (taxableIncome - 750000) * 0.15;
+    } else if (taxableIncome > 1000000 && taxableIncome <= 1250000) {
+      calculatedNewTax = 75000 + (taxableIncome - 1000000) * 0.2;
+    } else if (taxableIncome > 1250000 && taxableIncome <= 1500000) {
+      calculatedNewTax = 125000 + (taxableIncome - 1250000) * 0.25;
+    } else {
+      calculatedNewTax = 187500 + (taxableIncome - 1500000) * 0.3;
+    }
+
+    // Below code is the one that calculates taxes based on the change in the budget..
+
+    // if (taxableIncome <= 300000) {
+    //   calculatedNewTax = 0;
+    // } else if(taxableIncome <= 500000) {
+    //   calculatedNewTax = (taxableIncome - 300000) * 0.05;
+    // } else if (taxableIncome <= 600000) {
+    //   calculatedNewTax = 10000 + (taxableIncome - 500000) * 0.05;
+    // } else if (taxableIncome <= 750000) {
+    //   calculatedNewTax = 15000 + (taxableIncome - 600000) * 0.1;
+    // } else if (taxableIncome <= 900000) {
+    //   calculatedNewTax = 30000 + (taxableIncome - 750000) * 0.1;
+    // } else if (taxableIncome <= 1000000) {
+    //   calculatedNewTax = 45000 + (taxableIncome - 900000) * 0.15;
+    // } else if (taxableIncome <= 1200000) {
+    //   calculatedNewTax = 75000 + (taxableIncome - 1000000) * 0.15;
+    // } else if (taxableIncome <= 1250000) {
+    //   calculatedNewTax = 85000 + (taxableIncome - 1200000) * 0.2;
+    // } else if (taxableIncome <= 1500000) {
+    //   calculatedNewTax = 135000 + (taxableIncome - 1250000) * 0.2;
+    // } else {
+    //   calculatedNewTax = 135000 + (taxableIncome - 150000) * 0.3;
+    // }
         
         return calculatedNewTax;
   }
@@ -66,14 +91,17 @@ function IncomeTaxCalculator() {
       rentalIncome +
       digitalAssetIncome -
       interestOnHousingLoan - 
+      medicalInsurance - 
       basicDeductions -
       exemptAllowances - 50000;
       return taxableIncome;
   }
   const calculateTax = () => {
+    console.log( "income from salary", incomeFromSalary
+    )
     const taxableIncome = calculateTaxableIncome();
     let calculatedOldTax = calculateTaxOldRegime(taxableIncome);
-    let calculatedNewTax = calculateTaxNewRegime(taxableIncome);
+    let calculatedNewTax = calculateTaxNewRegime(incomeFromSalary);
     dispatch({type: 'taxCalculated', 
     payload: {
         taxableIncome: taxableIncome,

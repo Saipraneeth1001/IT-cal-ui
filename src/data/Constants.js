@@ -3,7 +3,7 @@ export const cardData = [
     {
         'title':"Calculate Taxes",
         'text': "Use the data you have - [Basic Salary, HRA, PF, etc.] to find out the taxable income and how much tax you need to pay",
-        'route':"/taxes"
+        'route':"/calculate-taxes"
     },
     {
         'title':"Information",

@@ -6,12 +6,11 @@ import Homepage from "../pages/Homepage";
 import CalculateTaxPage from "../pages/old/CalculateTaxPage";
 import Infopage from "../pages/Infopage";
 import ScrollToSection from "../layouts/ScrollToSection";
-import SimpleExamplePage from "../pages/SimpleExamplePage";
 import ComplexExamplePage from "../pages/ComplexExamplePage";
 import Investments from "../pages/Investments";
 import SimpleExampleOne from "../components/examples/SimpleExampleOne";
-import IncomeTaxCalculator from "../components/IncomeTaxCalculator";
 import TaxForm from "../pages/IncomeTaxCalculatorPage";
+import SimpleExample from "../data/SimpleExample";
 
 const Router = createBrowserRouter([
   {
@@ -36,10 +35,6 @@ const Router = createBrowserRouter([
     element: <ScrollToSection />,
   },
   {
-    path: "/simple-example",
-    element: <SimpleExamplePage />,
-  },
-  {
     path: "/complex-example",
     element: <ComplexExamplePage />,
   },
@@ -54,6 +49,10 @@ const Router = createBrowserRouter([
   {
     path: "/simple-ex-15",
     element: <SimpleExampleOne />,
+  },
+  {
+    path: "/simple-example",
+    element: <SimpleExample />,
   },
 ]);
 

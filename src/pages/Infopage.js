@@ -1,26 +1,24 @@
 import { Button, Container, Grid } from "@material-ui/core";
 import React from "react";
-import TaxRegime from "../components/TaxRegime";
 import Navbar from "../components/Navbar";
 
 import { Link as ScrollLink } from "react-scroll";
+import NewTaxRegime from "../components/NewTaxRegime";
+import OldTaxRegime from "../components/OldTaxRegime";
 
 export default function Infopage() {
-  const sections = ["section1", "section2", "section3"];
+  const sections = ["new-tax-regime", "old-tax-regime"];
 
   return (
     <Container>
       <Navbar />
       <Grid container spacing={2} style={{ marginTop: 2 }}>
         <Grid item xs={8} md={8}>
-          <div id="section1">
-            <TaxRegime />
+          <div id="new-tax-regime">
+            <NewTaxRegime />
           </div>
-          <div id="section2">
-            <TaxRegime />
-          </div>
-          <div id="section3">
-            <TaxRegime />
+          <div id="old-tax-regime" style={{marginTop: 10}}>
+            <OldTaxRegime />
           </div>
         </Grid>
         <Grid item xs={4} md={4}>

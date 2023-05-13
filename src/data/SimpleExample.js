@@ -19,7 +19,7 @@ export default function SimpleExample() {
         <Grid item xs={8} md={8}>
           {examples.map((example) => (
             <div id={example.path}>
-              <Typography component="h6">{example.description}</Typography>
+              <Typography variant="h5">{example.description}</Typography>
               <div>
                 {example.example.split(".").map((text) => (
                   <p>{text}</p>

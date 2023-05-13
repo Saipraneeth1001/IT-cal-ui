@@ -32,7 +32,7 @@ const NewTaxRegime = () => {
     <Card className={classes.card}>
       <CardContent>
         <Typography className={classes.title} variant="h5" component="h2">
-          Tax Slabs in India
+          Tax Slabs in India - New Tax Regime
         </Typography>
         <TableContainer>
           <Table aria-label="tax slab table">
